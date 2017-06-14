@@ -23,7 +23,7 @@ module.exports = function(options) {
             'main': './src/main/webapp/app/app.main'
         },
         resolve: {
-            extensions: ['.ts', '.js', 'scss'],
+            extensions: ['.ts', '.js'],
             modules: ['node_modules']
         },
         module: {
@@ -69,17 +69,8 @@ module.exports = function(options) {
                     loaders: ['style-loader', 'css-loader']
                 },
                 {
-                    test: /(vendor\.css|global\.css)/,
-                    loaders: ['style-loader', 'css-loader']
-                },
-                {
                     test: /\.(jpe?g|png|gif|svg|woff2?|ttf|eot)$/i,
-                    loaders: ['file-loader?hash=sha512&digest=hex&name=[hash].[ext]'],
-                    // include: [path.resolve(__dirname, '/webapp/content')]
-                    // include: [path.resolve(__dirname, '/src/main/webapp/content/**')]
-                    // include: '/src/main/webapp/content/**'
-                    // include: ['/src/main/webapp/content/**']
-                    // include: [',', path.resolve(__dirname, '/src/main/webapp/content/img/**')]
+                    loaders: ['file-loader?hash=sha512&digest=hex&name=[hash].[ext]']
                 },
                 {
                     test: /app.constants.ts$/,
