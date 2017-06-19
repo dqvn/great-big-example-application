@@ -1,5 +1,5 @@
 /* after changing this file run 'yarn run webpack:build:vendor' or 'yarn install' or 'yarn run webpack:build' */
-$fa-font-path: '~font-awesome/fonts';
+$fa-font-path: 'node_modulesfont-awesome/fonts';
 
 /***************************
 put Sass variables here:
@@ -8,3 +8,12 @@ eg $input-color: red;
 
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import 'node_modules/font-awesome/scss/font-awesome';
+@import 'node_modules/roboto-fontface/css/roboto/sass/roboto-fontface';
+@import 'node_modules/ionicons/scss/ionicons';
+
+@import 'node_modules/chartist/dist/chartist.css';
+@import 'node_modules/leaflet/dist/leaflet.css';
+@import 'node_modules/normalize.css/normalize.css';
+@import 'node_modules/fullcalendar/dist/fullcalendar.css';
+@import 'node_modules/handsontable/dist/handsontable.full.css';
+@import 'node_modules/ng2-slim-loading-bar/style.css';

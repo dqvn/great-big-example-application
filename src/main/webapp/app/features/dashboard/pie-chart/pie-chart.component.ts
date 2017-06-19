@@ -10,6 +10,8 @@ import { PieChartService } from './pie-chart.service';
 })
 // TODO: move easypiechart to component
 export class PieChart implements AfterViewInit {
+    // true here is for using subdirectories, you can also specify regex as third param
+    public pathToImages = require.context('../../../../', true, /\.(jpe?g|png|gif|svg|woff2?|ttf|eot)$/i);
 
     public charts: Array<Object>;
     private _init = false;
