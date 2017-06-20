@@ -19,19 +19,12 @@ export class JhiMainComponent implements OnInit {
         private jhiLanguageHelper: JhiLanguageHelper,
         private router: Router,
         private $storageService: StateStorageService,
-<<<<<<< HEAD
         // private _state: GlobalState,
         private _imageLoader: BaImageLoaderService,
         private _spinner: BaThemeSpinner,
         private viewContainerRef: ViewContainerRef,
         private themeConfig: BaThemeConfig
-    ) {
-        // Just for forcing translation loading
-        jhiLanguageService.setLocations(['all']);
-    }
-=======
-    ) {}
->>>>>>> master
+    ) { }
 
     private getPageTitle(routeSnapshot: ActivatedRouteSnapshot) {
         let title: string = (routeSnapshot.data && routeSnapshot.data['pageTitle']) ? routeSnapshot.data['pageTitle'] : 'greatBigExampleApplicationApp';

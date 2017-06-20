@@ -9,9 +9,4 @@ export class BaCard {
     @Input() title: String;
     @Input() baCardClass: String;
     @Input() cardType: String;
-
-    constructor(
-        private jhiLanguageService: JhiLanguageService) {
-        this.jhiLanguageService.setLocations(['all']);
-    }
 }
