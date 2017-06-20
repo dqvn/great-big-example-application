@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRouteSnapshot, NavigationEnd, RoutesRecognized } from '@angular/router';
 
-import { JhiLanguageService } from 'ng-jhipster';
 import { JhiLanguageHelper, StateStorageService } from '../../shared';
 import * as $ from 'jquery';
 
@@ -18,9 +17,9 @@ export class JhiMainComponent implements OnInit {
 
     constructor(
         private jhiLanguageHelper: JhiLanguageHelper,
-        private jhiLanguageService: JhiLanguageService,
         private router: Router,
         private $storageService: StateStorageService,
+<<<<<<< HEAD
         // private _state: GlobalState,
         private _imageLoader: BaImageLoaderService,
         private _spinner: BaThemeSpinner,
@@ -30,6 +29,9 @@ export class JhiMainComponent implements OnInit {
         // Just for forcing translation loading
         jhiLanguageService.setLocations(['all']);
     }
+=======
+    ) {}
+>>>>>>> master
 
     private getPageTitle(routeSnapshot: ActivatedRouteSnapshot) {
         let title: string = (routeSnapshot.data && routeSnapshot.data['pageTitle']) ? routeSnapshot.data['pageTitle'] : 'greatBigExampleApplicationApp';

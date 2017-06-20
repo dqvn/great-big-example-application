@@ -1,8 +1,7 @@
-import { NgModule, Sanitizer } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { TranslateService } from 'ng2-translate';
-import { AlertService } from 'ng-jhipster';
-import { WindowRef } from './services/window.service';
+
+import { WindowRef } from './tracker/window.service';
 import {
     GreatBigExampleApplicationSharedLibsModule,
     JhiLanguageHelper,
@@ -10,12 +9,6 @@ import {
     JhiAlertComponent,
     JhiAlertErrorComponent
 } from './';
-
-export function alertServiceProvider(sanitizer: Sanitizer, translateService: TranslateService) {
-    // set below to true to make alerts look like toast
-    const isToast = true;
-    return new AlertService(sanitizer, isToast, translateService);
-}
 
 @NgModule({
     imports: [
@@ -29,11 +22,6 @@ export function alertServiceProvider(sanitizer: Sanitizer, translateService: Tra
     providers: [
         JhiLanguageHelper,
         WindowRef,
-        {
-            provide: AlertService,
-            useFactory: alertServiceProvider,
-            deps: [Sanitizer, TranslateService]
-        },
         Title
     ],
     exports: [
@@ -43,4 +31,4 @@ export function alertServiceProvider(sanitizer: Sanitizer, translateService: Tra
         JhiAlertErrorComponent
     ]
 })
-export class GreatBigExampleApplicationSharedCommonModule { }
+export class GreatBigExampleApplicationSharedCommonModule {}
