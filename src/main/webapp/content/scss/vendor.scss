@@ -6,14 +6,7 @@ put Sass variables here:
 eg $input-color: red;
 ****************************/
 
-@import 'node_modules/bootstrap/scss/bootstrap';
-@import 'node_modules/font-awesome/scss/font-awesome';
-@import 'node_modules/roboto-fontface/css/roboto/sass/roboto-fontface';
-@import 'node_modules/ionicons/scss/ionicons';
-
-@import 'node_modules/chartist/dist/chartist.css';
-@import 'node_modules/leaflet/dist/leaflet.css';
-@import 'node_modules/normalize.css/normalize.css';
-@import 'node_modules/fullcalendar/dist/fullcalendar.css';
-@import 'node_modules/handsontable/dist/handsontable.full.css';
-@import 'node_modules/ng2-slim-loading-bar/style.css';
+@import '~bootstrap/scss/bootstrap';
+@import '~font-awesome/scss/font-awesome';
+@import '~roboto-fontface/css/roboto/sass/roboto-fontface';
+@import '~ionicons/scss/ionicons';
