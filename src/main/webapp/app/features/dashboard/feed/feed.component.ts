@@ -5,8 +5,7 @@ import { FeedService } from './feed.service';
 @Component({
     selector: 'jhi-feed',
     templateUrl: './feed.component.html',
-    styles: [require('./feed.component.scss')
-    ]
+    styleUrls: ['feed.component.scss']
 })
 export class Feed implements OnInit {
     // true here is for using subdirectories, you can also specify regex as third param

@@ -57,8 +57,8 @@ module.exports = (options) => {
                 },
                 {
                     test: /\.scss$/,
-                    // use: ['to-string-loader', 'css-loader', 'sass-loader'],
-                    use: ['style-loader', 'css-loader', 'sass-loader'],
+                    use: ['to-string-loader', 'css-loader', 'sass-loader'],
+                    // use: ['style-loader', 'css-loader', 'sass-loader'],
                     exclude: /(vendor\.scss|global\.scss)/
                 },
                 {
@@ -79,10 +79,10 @@ module.exports = (options) => {
                 //         'sass-loader'   // uses node-sass to compile scss to css
                 //     ]
                 // },
-                // {
-                //     test: /(vendor\.css|global\.css)/,
-                //     use: ['style-loader', 'css-loader']
-                // },
+                {
+                    test: /(vendor\.css|global\.css)/,
+                    use: ['style-loader', 'css-loader']
+                },
                 {
                     test: /\.css$/,
                     use: ['to-string-loader', 'css-loader'],
