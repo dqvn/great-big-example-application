@@ -90,7 +90,12 @@ module.exports = (options) => {
                 },
                 {
                     test: /\.(jpe?g|png|gif|svg|woff2?|ttf|eot)$/i,
-                    use: ['file-loader?hash=sha512&digest=hex&name=content/[hash].[ext]']
+                    use: ['file-loader?hash=sha512&digest=hex&name=content/[hash].[ext]'],
+                    exclude: /sky-bg\.jpg$/
+                },
+                {
+                    test: /sky-bg\.jpg$/i,
+                    use: ['file-loader?name=content/[name].[ext]']
                 },
                 {
                     test: /manifest.webapp$/,
