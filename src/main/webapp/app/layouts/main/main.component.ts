@@ -50,10 +50,9 @@ export class JhiMainComponent implements OnInit {
     }
 
     private _loadImages(): void {
-        // register some loaders
-        const pathToImages = require.context('../../../../', true, /\.(jpe?g|png|gif|svg|woff2?|ttf|eot)$/i);
 
-        BaThemePreloader.registerLoader(this._imageLoader.load(pathToImages('/content/img/sky-bg.jpg')));
+        // register some loaders
+        BaThemePreloader.registerLoader(this._imageLoader.load('/content/img/sky-bg.jpg'));
     }
 
 }

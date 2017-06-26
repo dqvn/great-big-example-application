@@ -22,8 +22,10 @@ $default-animation-duration: 0.2s;
 $default-animation-style: ease-out;
 
 $content-root: '/content';
-$images-root: '/img/';
-$fonts-root: '/fonts/';
+// $images-root: '/img/';
+$images-root: '/';
+// $fonts-root: '/fonts/';
+$fonts-root: '/';
 $font-thin: 100;
 $font-light: 300;
 $font-normal: 400;

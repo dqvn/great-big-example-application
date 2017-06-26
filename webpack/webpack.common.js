@@ -91,10 +91,10 @@ module.exports = (options) => {
                 {
                     test: /\.(jpe?g|png|gif|svg|woff2?|ttf|eot)$/i,
                     use: ['file-loader?hash=sha512&digest=hex&name=content/[hash].[ext]'],
-                    exclude: /sky-bg\.jpg$/
+                    exclude: /(sky-bg\.jpg$|(person|money|face|refresh).svg$)/
                 },
                 {
-                    test: /sky-bg\.jpg$/i,
+                    test: /(sky-bg\.jpg$|(person|money|face|refresh).svg$)/i,
                     use: ['file-loader?name=content/[name].[ext]']
                 },
                 {
