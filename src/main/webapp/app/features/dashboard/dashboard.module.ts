@@ -21,6 +21,7 @@ import { PieChartService } from './pie-chart/pie-chart.service';
 import { TodoService } from './todo/todo.service';
 import { TrafficChartService } from './traffic-chart/traffic-chart.service';
 import { UsersMapService } from './users-map/users-map.service';
+import { customHttpProvider } from '../../blocks/interceptor/http.provider';
 
 @NgModule({
     imports: [
@@ -42,6 +43,7 @@ import { UsersMapService } from './users-map/users-map.service';
         DashboardPage
     ],
     providers: [
+        customHttpProvider(),
         CalendarService,
         FeedService,
         LineChartService,

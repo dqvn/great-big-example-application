@@ -8,9 +8,9 @@ import { slices } from '../../core/store/util';
 import * as SliceActions from '../../core/store/slice/slice.actions';
 
 @Component({
-  selector: 'jhi-counter-page',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
+    selector: 'jhi-counter-page',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
     <jhi-container testid="counter" [size]=2 [center]=true>
       <h2 data-testid="counter-heading" id="qa-counter-heading"
         class="center caps">
@@ -22,22 +22,23 @@ import * as SliceActions from '../../core/store/slice/slice.actions';
         (increment)="increment()"
         (decrement)="decrement()">
       </jhi-counter>
+    <p jhiTranslate="footer">footer</p>
     </jhi-container>
   `,
-  styleUrls: ['./counter.component.scss']
+    styleUrls: ['./counter.component.scss']
 })
 export class CounterPage {
-  value$: Observable<number>;
+    value$: Observable<number>;
 
-  constructor(private store: Store<fromRoot.RootState>) {
-    this.value$ = store.select(fromRoot.getCounterValue);
-  }
+    constructor(private store: Store<fromRoot.RootState>) {
+        this.value$ = store.select(fromRoot.getCounterValue);
+    }
 
-  increment() {
-    this.store.dispatch(new SliceActions.Update(slices.COUNTER, ['value'], (state) => state.value + 1));
-  }
+    increment() {
+        this.store.dispatch(new SliceActions.Update(slices.COUNTER, ['value'], (state) => state.value + 1));
+    }
 
-  decrement() {
-    this.store.dispatch(new SliceActions.Update(slices.COUNTER, ['value'], (state) => state.value - 1));
-  }
+    decrement() {
+        this.store.dispatch(new SliceActions.Update(slices.COUNTER, ['value'], (state) => state.value - 1));
+    }
 }

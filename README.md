@@ -98,9 +98,9 @@ lower authority yielding to the higher one:
 2. [Tour of Heroes (ngModules, Routing, App Specs, HTTP, Server Communication versions)](https://github.com/dancancro/tour-of-heroes-versions) by Google
 3. [Angular CLI](https://github.com/angular/angular-cli) by Google and the community
 4. [Redux Docs](http://redux.js.org/) Redux.org
-5. [JHipster Example - Bank accounts](https://github.com/jhipster/jhipster-sample-app-ng2) by [@jdubois](https://github.com/jdubois)
 6. [JHipster Example - Blog](https://github.com/mraible/jhipster4-demo) by [@mraible](https://github.com/mraible)
 7. [JHipster Example - Chat](https://github.com/ruddell/jhipster-chat-example) by [@ruddell](https://github.com/ruddell)
+5. [ng2-admin - Admin App](https://github.com/akveo/ng2-admin) by [@nnxiaa](https://github.com/nnixaa) and community
 8. [scalable-architecture-demo - P2P Typing Game](https://github.com/mgechev/scalable-architecture-demo) by [@mgechev](https://github.com/mgechev)
 9. [ngrx example app - book collection](https://github.com/ngrx/example-app) by [@MikeRyan52](https://github.com/MikeRyan52)
 10. [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) by [@mgechev](https://github.com/mgechev) + [@NathanWalker](https://github.com/NathanWalker) + community
@@ -197,11 +197,22 @@ You will only need to run this command when dependencies change in [package.json
 
 We use yarn scripts and [Webpack][] as our build system.
 
+### Define and seed the database
+
+Run this from your project root to define the database schema and populate it with some data.
+
+    jhipster import-jdl schema.jdl
+
+### Run the app
 
 Run the following commands in two separate terminals to create a blissful development experience where your browser
 auto-refreshes when files change on your hard drive.
 
+1. back end server
+
     ./mvnw
+2. front end server
+
     yarn start
 
 [Yarn][] is also used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies by

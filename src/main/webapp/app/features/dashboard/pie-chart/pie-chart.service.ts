@@ -22,7 +22,7 @@ export class PieChartService {
         icon: 'money',
       }, {
         color: pieColor,
-        description: 'dashboard.active_users',
+        description: 'dashboard.activeUsers',
         stats: '178,391',
         icon: 'face',
       }, {
