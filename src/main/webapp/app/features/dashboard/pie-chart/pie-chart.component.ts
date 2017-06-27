@@ -30,7 +30,7 @@ export class PieChart implements AfterViewInit {
 
     private _loadPieCharts() {
 
-        jQuery('.chart').each(function () {
+        jQuery('.chart').each(function() {
             const chart = jQuery(this);
             chart.easyPieChart({
                 easing: 'easeOutBounce',

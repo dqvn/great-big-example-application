@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRouteSnapshot, NavigationEnd, RoutesRecognized } from '@angular/router';
 
 import { JhiLanguageHelper, StateStorageService } from '../../shared';
@@ -13,7 +13,7 @@ import { layoutPaths } from '../../theme/theme.constants';
     selector: 'jhi-main',
     templateUrl: './main.component.html'
 })
-export class JhiMainComponent implements OnInit {
+export class JhiMainComponent implements OnInit, AfterViewInit {
 
     constructor(
         private jhiLanguageHelper: JhiLanguageHelper,

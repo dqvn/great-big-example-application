@@ -35,7 +35,7 @@ export class BaMultiCheckbox implements ControlValueAccessor {
     }
 
     public registerOnChange(fn: any): void {
-        this.onChange = function (state: boolean) {
+        this.onChange = function(state: boolean) {
             this.writeValue(state);
             this.model.viewToModelUpdate(state);
         };
