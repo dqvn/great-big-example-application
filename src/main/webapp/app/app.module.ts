@@ -10,6 +10,9 @@ import { GreatBigExampleApplicationAdminModule } from './admin/admin.module';
 import { GreatBigExampleApplicationAccountModule } from './account/account.module';
 import { GreatBigExampleApplicationEntityModule } from './entities/entity.module';
 import { StoreLogMonitorModule } from '@ngrx/store-log-monitor';
+import { TranslateModule, TranslateLoader, TranslateParser, MissingTranslationHandler } from '@ngx-translate/core';
+import { Http } from '@angular/http';
+import { TranslateHttpLoader, } from '@ngx-translate/http-loader';
 
 import { customHttpProvider } from './blocks/interceptor/http.provider';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
@@ -32,6 +35,11 @@ import {
     ErrorComponent
 } from './layouts';
 
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: Http) {
+    return new TranslateHttpLoader(http);
+}
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -44,6 +52,13 @@ import {
         GreatBigExampleApplicationEntityModule,
         FeaturesModule,
         CoreModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [Http]
+            },
+        }),
         StoreLogMonitorModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],

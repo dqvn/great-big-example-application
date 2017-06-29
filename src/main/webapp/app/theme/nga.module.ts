@@ -114,7 +114,7 @@ const NGA_VALIDATORS = [
         FormsModule,
         ReactiveFormsModule,
         GreatBigExampleApplicationSharedModule,
-        AppTranslationModule,
+        // AppTranslationModule,
         NgUploaderModule,
         TranslateModule
     ],

@@ -42,7 +42,7 @@ import { AppTranslationModule } from '../../app.translation.module';
         GreatBigExampleApplicationSharedModule,
         NgaModule,
         DashboardRouting,
-        AppTranslationModule,
+        // AppTranslationModule,
         // TranslateModule.forChild({}),
         // TranslateModule.forChild({
         //     loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [Http], },

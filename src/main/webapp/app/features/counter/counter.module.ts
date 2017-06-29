@@ -14,7 +14,7 @@ import { AppTranslationModule } from '../../app.translation.module';
         GreatBigExampleApplicationSharedModule,
         ReactiveFormsModule,
         CounterRouting,
-        AppTranslationModule,
+        // AppTranslationModule,
         EffectsModule.run(CounterEffects)
     ],
     declarations: [
