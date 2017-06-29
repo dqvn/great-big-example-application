@@ -1,5 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 import {
     AccountService,
@@ -58,7 +59,8 @@ export const components = [
 @NgModule({
     imports: [
         GreatBigExampleApplicationSharedLibsModule,
-        GreatBigExampleApplicationSharedCommonModule
+        GreatBigExampleApplicationSharedCommonModule,
+        // TranslateModule.forChild({})
     ],
     declarations: [
         JhiSocialComponent,

@@ -1,7 +1,12 @@
 import { NgModule } from '@angular/core';
+import { Http } from '@angular/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgaModule } from '../../theme/nga.module';
+import { TranslateModule, TranslateLoader, TranslateParser, MissingTranslationHandler } from '@ngx-translate/core';
+import { TranslateHttpLoader, } from '@ngx-translate/http-loader';
+import { translatePartialLoader, missingTranslationHandler } from 'ng-jhipster';
+import { JhiConfigService } from 'ng-jhipster/src/config.service';
 
 import { DashboardPage } from './dashboard.page';
 import { DashboardRouting } from './dashboard.routing';
@@ -22,6 +27,13 @@ import { TodoService } from './todo/todo.service';
 import { TrafficChartService } from './traffic-chart/traffic-chart.service';
 import { UsersMapService } from './users-map/users-map.service';
 import { customHttpProvider } from '../../blocks/interceptor/http.provider';
+import { AppTranslationModule } from '../../app.translation.module';
+
+
+// AoT requires an exported function for factories
+// export function HttpLoaderFactory(http: Http) {
+//     return new TranslateHttpLoader(http, 'content/i18n/', '.json');
+// }
 
 @NgModule({
     imports: [
@@ -29,7 +41,26 @@ import { customHttpProvider } from '../../blocks/interceptor/http.provider';
         FormsModule,
         GreatBigExampleApplicationSharedModule,
         NgaModule,
-        DashboardRouting
+        DashboardRouting,
+        AppTranslationModule,
+        // TranslateModule.forChild({}),
+        // TranslateModule.forChild({
+        //     loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [Http], },
+        //     parser: { provide: TranslateParser, useClass: TranslateParser, useFactory: HttpLoaderFactory },
+        //     isolate: true
+        // }),
+        // TranslateModule.forChild({
+        //     loader: {
+        //         provide: TranslateLoader,
+        //         useFactory: translatePartialLoader,
+        //         deps: [Http]
+        //     },
+        //     missingTranslationHandler: {
+        //         provide: MissingTranslationHandler,
+        //         useFactory: missingTranslationHandler,
+        //         deps: [JhiConfigService]
+        //     }
+        // })
     ],
     declarations: [
         PopularApp,

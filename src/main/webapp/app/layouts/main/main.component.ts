@@ -24,7 +24,9 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
         private _spinner: BaThemeSpinner,
         private viewContainerRef: ViewContainerRef,
         private themeConfig: BaThemeConfig
-    ) { }
+    ) {
+        // translate.setDefaultLang('en');
+    }
 
     private getPageTitle(routeSnapshot: ActivatedRouteSnapshot) {
         let title: string = (routeSnapshot.data && routeSnapshot.data['pageTitle']) ? routeSnapshot.data['pageTitle'] : 'greatBigExampleApplicationApp';

@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgUploaderModule } from 'ngx-uploader';
+import { AppTranslationModule } from '../app.translation.module';
 import { GreatBigExampleApplicationSharedModule } from '../shared';
+import { TranslateModule } from '@ngx-translate/core';
 
 import {
     BaThemeConfig
@@ -112,12 +114,15 @@ const NGA_VALIDATORS = [
         FormsModule,
         ReactiveFormsModule,
         GreatBigExampleApplicationSharedModule,
-        NgUploaderModule
+        AppTranslationModule,
+        NgUploaderModule,
+        TranslateModule
     ],
     exports: [
         ...NGA_PIPES,
         ...NGA_DIRECTIVES,
-        ...NGA_COMPONENTS
+        ...NGA_COMPONENTS,
+        TranslateModule
     ]
 })
 export class NgaModule {
