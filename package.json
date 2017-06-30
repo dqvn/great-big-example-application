@@ -181,6 +181,14 @@
     "test:watch": "karma start src/test/javascript/karma.conf.js --watch",
     "e2e": "protractor src/test/javascript/protractor.conf.js",
     "postinstall": "webdriver-manager update && node node_modules/phantomjs-prebuilt/install.js && yarn run webpack:build",
-    "webdriver": "yarn run webpack:build"
+    "webdriver": "yarn run webpack:build",
+    "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx": "",
+    "rimraf": "rimraf",
+    "clean:dist": "npm run rimraf -- target .awcache",
+    "build:aot": "npm run build:aot:prod",
+    "build:aot:prod": "npm run clean:dist && npm run sass && webpack",
+    "build:aot:prod:e2e": "npm run clean:dist && npm run sass && webpack",
+    "build:aot:dev": "npm run clean:dist && npm run sass && webpack",
+    "sass": "node-sass \"src/main/webapp/content/scss/global.scss\"  \"target/content/global.css\" --include-path node_modules --output-style compressed -q"
   }
 }
