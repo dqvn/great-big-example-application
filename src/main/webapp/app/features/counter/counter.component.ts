@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'jhi-counter',
@@ -37,4 +38,7 @@ export class CounterComponent {
     @Input() value: number;
     @Output() increment = new EventEmitter();
     @Output() decrement = new EventEmitter();
+
+    constructor(private translateService: TranslateService) {
+    }
 }

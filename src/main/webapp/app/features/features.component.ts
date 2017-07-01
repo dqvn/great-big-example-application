@@ -8,6 +8,7 @@ import {
     ChangeDetectorRef,
     Renderer,
     ElementRef,
+    ViewEncapsulation
 } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -19,13 +20,13 @@ import { Observable } from 'rxjs/Rx';
 
 @Component({
     templateUrl: 'features.component.html',
-    styleUrls: ['features.component.scss']
+    styleUrls: ['features.component.scss'],
     // encapsulation: ViewEncapsulation.None
 })
 export class FeaturesComponent implements OnInit, OnDestroy, AfterViewInit {
-    static SIDE_MENU_BREAKPOINT = 'gt-md';
+    // static SIDE_MENU_BREAKPOINT = 'gt-md';
 
-    site = 'MANF';
+    // site = 'MANF';
     version: string;
     modules: FeatureMeta[] = [];
 

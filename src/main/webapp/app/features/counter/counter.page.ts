@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { TranslateService } from '@ngx-translate/core';
 
 import * as fromRoot from '../../core/store';
 import { Counter } from '../../core/store/counter/counter.model';
@@ -22,15 +23,16 @@ import * as SliceActions from '../../core/store/slice/slice.actions';
         (increment)="increment()"
         (decrement)="decrement()">
       </jhi-counter>
-    <p jhiTranslate="footer">footer</p>
+    <p>{{'footer' | translate}}</p>
     </jhi-container>
   `,
     styleUrls: ['./counter.component.scss']
 })
+// <p jhiTranslate="footer">footer</p>
 export class CounterPage {
     value$: Observable<number>;
 
-    constructor(private store: Store<fromRoot.RootState>) {
+    constructor(private store: Store<fromRoot.RootState>, private translateService: TranslateService) {
         this.value$ = store.select(fromRoot.getCounterValue);
     }
 
