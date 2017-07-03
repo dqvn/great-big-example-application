@@ -6,6 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgJhipsterModule } from 'ng-jhipster';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CookieModule } from 'ngx-cookie';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     imports: [
@@ -25,7 +26,8 @@ import { CookieModule } from 'ngx-cookie';
         CommonModule,
         NgbModule,
         NgJhipsterModule,
-        InfiniteScrollModule
+        InfiniteScrollModule,
+        TranslateModule
     ]
 })
-export class GreatBigExampleApplicationSharedLibsModule {}
+export class GreatBigExampleApplicationSharedLibsModule { }

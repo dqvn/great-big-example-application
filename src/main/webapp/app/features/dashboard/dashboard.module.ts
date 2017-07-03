@@ -27,7 +27,6 @@ import { TodoService } from './todo/todo.service';
 import { TrafficChartService } from './traffic-chart/traffic-chart.service';
 import { UsersMapService } from './users-map/users-map.service';
 import { customHttpProvider } from '../../blocks/interceptor/http.provider';
-import { AppTranslationModule } from '../../app.translation.module';
 
 
 // AoT requires an exported function for factories
@@ -42,7 +41,6 @@ import { AppTranslationModule } from '../../app.translation.module';
         GreatBigExampleApplicationSharedModule,
         NgaModule,
         DashboardRouting,
-        AppTranslationModule,
         // TranslateModule.forChild({}),
         // TranslateModule.forChild({
         //     loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [Http], },

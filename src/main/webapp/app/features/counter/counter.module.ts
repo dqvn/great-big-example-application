@@ -8,7 +8,6 @@ import { GreatBigExampleApplicationSharedModule } from '../../shared/shared.modu
 import { CounterComponent } from './counter.component';
 import { CounterPage } from './counter.page';
 import { CounterEffects } from '../../core/store/counter/counter.effects';
-import { AppTranslationModule } from '../../app.translation.module';
 import { SharedLazyModule } from '../../shared/shared-lazy.module';
 
 @NgModule({

@@ -23,7 +23,6 @@ import * as SliceActions from '../../core/store/slice/slice.actions';
         (increment)="increment()"
         (decrement)="decrement()">
       </jhi-counter>
-    <p>{{'footer' | translate}}</p>
     </jhi-container>
   `,
     styleUrls: ['./counter.component.scss']

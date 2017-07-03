@@ -8,7 +8,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FeaturesRouting } from './features.routing';
 import { FeaturesService } from './features.service';
 import { CoreModule } from '../core/core.module';
-import { AppTranslationModule } from '../app.translation.module';
 import { FeaturesComponent } from './features.component';
 import { HomePage } from './home/home.page';
 import { VersionService } from '../shared/index';
@@ -23,7 +22,6 @@ import { VersionService } from '../shared/index';
         // CoreModule,
         CommonModule,
         FeaturesRouting,
-        AppTranslationModule,
         MaterialModule,
         FlexLayoutModule
     ],
