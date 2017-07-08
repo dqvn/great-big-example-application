@@ -201,7 +201,7 @@ export function loadFromRemote$(actions$: Actions, slice: string, dataService): 
 export function addToRemote$(actions$: Actions, slice: string, dataService, store): Observable<Action> {
     return actions$
         .ofType(typeFor(slice, actions.ADD), typeFor(slice, actions.ADD_OPTIMISTICALLY))
-        .switchMap((action) => dataService.add(action.payloadForPost(), slice))
+        .switchMap((action) => dataService.add((<any>action).payloadForPost(), slice))  // TODO: find better way
         .map((responseEntity) => new EntityActions.AddSuccess(slice, responseEntity));
 }
 

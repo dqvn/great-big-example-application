@@ -1,8 +1,8 @@
-import { Component, Input } from "@angular/core";
-import { Talk } from "../../../core/store/talk/talk.model";
+import { Component, Input } from '@angular/core';
+import { Talk } from '../../../core/store/talk/talk.model';
 
 @Component({
-    selector: 'jhi-talk',
+    selector: 'talk-cmp',
     templateUrl: './talk.component.html',
     styleUrls: ['./talk.component.css']
 })

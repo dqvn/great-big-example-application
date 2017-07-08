@@ -1,23 +1,7 @@
 import { BooksPageLayout, initialBooksPageLayout } from '../../../features/books/books.layout';
 import { BerniePageLayout, initialBerniePageLayout } from '../../../features/bernie/bernie.layout';
 import { HeroesDashboardLayout, initialHeroesDashboardPageLayout } from '../../../features/heroes/heroes.layout';
-
-/**
- * Talks
- */
-export type Filters = { speaker: string, title: string, minRating: number };
-
-export interface TalksPageLayout {
-    filters: Filters
-}
-
-export const initialTalksPageLayout = {
-    filters: {
-        speaker: null,
-        title: null,
-        minRating: 0
-    }
-};
+import { TalksPageLayout, initialTalksPageLayout } from '../../../features/talks/talks.layout';
 
 /**
  * Combination of everything

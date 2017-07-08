@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Output, Inject, Input } from "@angular/core";
+import { Component, EventEmitter, Output, Inject, Input } from '@angular/core';
 import { FormGroup, FormControl } from "@angular/forms";
 import 'rxjs/add/operator/debounceTime';
+import { Filters } from '../talks.layout';
+
 
 @Component({
-    selector: 'jhi-filters',
-    templateUrl: './filters.component.html',
-    styleUrls: ['./filters.component.css']
+    selector: 'filters-cmp',
+    templateUrl: './filters.component.html'
 })
 export class FiltersComponent {
     @Output() filtersChange = new EventEmitter();
@@ -14,7 +15,7 @@ export class FiltersComponent {
         this.filtersForm.setValue({
             title: v.title,
             speaker: v.speaker,
-            highRating: v.rating > 9
+            highRating: v.minRating >= 9
         }, { emitEvent: false });
     }
 
@@ -26,9 +27,12 @@ export class FiltersComponent {
 
     constructor() {
         this.filtersForm.valueChanges.debounceTime(200).subscribe((value) => {
-            const minRating = value.highRating ? 9 : 0;
-            const filters = { speaker: value.speaker || null, title: value.title || null, minRating };
-            this.filtersChange.next(filters);
+            this.filtersChange.next(this.createFiltersObject(value));
         });
+    }
+
+    private createFiltersObject({ title, speaker, highRating }: { title: string, speaker: string, highRating: false }): Filters {
+        const minRating = highRating ? 9 : 0;
+        return { speaker: speaker || null, title: title || null, minRating };
     }
 }

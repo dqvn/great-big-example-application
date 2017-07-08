@@ -1,32 +1,27 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs';
+import { Component, Input } from "@angular/core";
+import { BackendService } from "../services/backend.service";
+import { ActivatedRoute } from "@angular/router";
 import 'rxjs/add/operator/mergeMap';
-
+import { WatchService } from "../services/watch.service";
 import { Talk } from '../../../core/store/talk/talk.model';
-import * as fromRoot from '../../../core/store';
+import { RootState } from '../../../core/store';
+import { Store } from "@ngrx/store";
 
 @Component({
-    selector: 'jhi-talk-details',
+    selector: 'talk-details-cmp',
     templateUrl: './talk-details.component.html',
     styleUrls: ['./talk-details.component.css']
 })
-export class TalkDetailsComponent implements OnInit {
-    talk$: Observable<Talk>;
-    talkSub: Subscription;
+export class TalkDetailsComponent {
     talk: Talk;
-    watched$: Observable<boolean>;
+    isWatched: boolean;
 
-    constructor(private store: Store<fromRoot.RootState>, private route: ActivatedRoute) { }
-
-    ngOnInit() {
-        this.talk$ = this.store.select(fromRoot.getSelectedTalk);
-        this.talkSub = this.talk$.subscribe((talk) => {
-            this.talk = talk;
+    constructor(private route: ActivatedRoute, private store: Store<RootState>) {
+        store.select('talk').subscribe(t => {
+            const id = (+route.snapshot.paramMap.get('id'));
+            this.talk = t.talks[id];
+            this.isWatched = t.watched[id];
         });
-        this.watched$ = this.store.select(fromRoot.getWatched);
     }
 
     handleRate(newRating: number): void {
@@ -46,9 +41,5 @@ export class TalkDetailsComponent implements OnInit {
                 talkId: this.talk.id,
             }
         });
-    }
-
-    ngOnDestroy() {
-        this.talkSub && this.talkSub.unsubscribe();
     }
 }

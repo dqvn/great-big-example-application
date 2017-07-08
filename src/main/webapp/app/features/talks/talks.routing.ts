@@ -6,52 +6,33 @@ import { Store } from '@ngrx/store';
 import { StoreAndRouterConnectorGuard } from '../../core/store/store-and-router-connector.guard';
 import { TalksAndFiltersPage } from "./talks-and-filters/talks-and-filters.page";
 import { TalkDetailsComponent } from "./talk-details/talk-details.component";
-import { TalksPage } from './talks.page';
 import { UserRouteAccessService } from '../../shared';
 
 const routes: Routes = [
+    { path: '', pathMatch: 'full', redirectTo: 'talks' },
     {
-        path: '',
-        component: TalksPage,
-        canActivateChild: [StoreAndRouterConnectorGuard],
-        children: [
-            // {
-            //     path: '', pathMatch: 'full', redirectTo: 'talks',
-            //     data: {
-            //         authorities: ['ROLE_USER'],
-            //         pageTitle: 'greatBigExampleApplicationApp.talks.home.title',
-            //         source: 'https://github.com/vsavkin/state-app-examples/tree/redux_with_router',
-            //         tags: ['redux', 'routing']
-            //     },
-            //     canActivate: [UserRouteAccessService]
-            // },
-            {
-                path: '',
-                component: TalksAndFiltersPage,
-                data: {
-                    authorities: ['ROLE_USER'],
-                    pageTitle: 'greatBigExampleApplicationApp.talks.home.title',
-                    source: 'https://github.com/vsavkin/state-app-examples/tree/redux_with_router',
-                    tags: ['redux', 'routing']
-                },
-                canActivate: [UserRouteAccessService]
-            },
-            {
-                path: 'talk/:id',
-                component: TalkDetailsComponent,
-                data: {
-                    authorities: ['ROLE_USER'],
-                    pageTitle: 'greatBigExampleApplicationApp.talks.home.title',
-                    source: 'https://github.com/vsavkin/state-app-examples/tree/redux_with_router',
-                    tags: ['redux', 'routing']
-                },
-                canActivate: [UserRouteAccessService]
-            }
-        ]
+        path: 'talks', pathMatch: 'full', component: TalksAndFiltersPage,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.talks.home.title',
+            source: 'https://github.com/vsavkin/state_management_ngrx4',
+            tags: ['redux', 'routing']
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'talk/:id', component: TalkDetailsComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.talks.home.title',
+            source: 'https://github.com/vsavkin/state_management_ngrx4',
+            tags: ['redux', 'routing']
+        },
+        canActivate: [UserRouteAccessService]
     }
 ];
 
-export const routedComponents = [TalksPage];
+export const routedComponents = [TalksAndFiltersPage, TalkDetailsComponent];
 
 @NgModule({
     imports: [

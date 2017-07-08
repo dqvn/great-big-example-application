@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'jhi-talks-page',
@@ -6,4 +6,5 @@ import { Component } from "@angular/core";
     styleUrls: ['./talks.page.css']
 })
 export class TalksPage {
+    title = 'Talks';
 }

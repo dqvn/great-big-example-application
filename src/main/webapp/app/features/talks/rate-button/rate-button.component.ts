@@ -3,8 +3,7 @@ import { Talk } from '../../../core/store/talk/talk.model';
 
 @Component({
     selector: 'rate-button',
-    templateUrl: './rate-button.component.html',
-    styleUrls: ['./rate-button.component.css']
+    templateUrl: './rate-button.component.html'
 })
 export class RateButtonComponent {
     @Input() talk: Talk;

@@ -14,6 +14,11 @@ export function reducer(state: Layout = initialLayout(), action: SliceAction): L
         case typeFor(slices.CONTACT, actions.LOAD):
             // TODO fix this. This action type doesn't go through the reducers because it's in the startsWith of an effect
             return functions.update(state, new SliceActions.Update(slices.LAYOUT, ['msg'], 'Loading contacts...'));
+        case 'TALK_WATCHED': {
+            const watched = { ...state.talksPage.watched };
+            watched[action.payload.talkId] = true;
+            return { ...state, talksPage: { ...state.talksPage, watched } };
+        }
         default:
             return state;
     }

@@ -1,10 +1,9 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { Talk } from "../../../core/store/talk/talk.model";
+import { Talk } from '../../../core/store/talk/talk.model';
 
 @Component({
     selector: 'watch-button',
-    templateUrl: './watch-button.component.html',
-    styleUrls: ['./watch-button.component.css']
+    templateUrl: './watch-button.component.html'
 })
 export class WatchButtonComponent {
     @Input() talk: Talk;

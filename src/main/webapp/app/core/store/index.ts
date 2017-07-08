@@ -19,8 +19,6 @@ import { Session } from './session/session.model';
 import { User } from './user/user.model';
 import { Talk } from './talk/talk.model';
 import { Talks } from './talk/talks.model';
-import { TalkWatchService } from '../services/talk-watch.service';
-import { TalkBackendService } from '../services/talk-backend.service';
 
 /**
  * The createSelector function is one of our most handy tools. In basic terms, you give
@@ -92,7 +90,7 @@ export interface RootState {
     message: any;
     note: Entities<Note>;
     rebuttal: Entities<Rebuttal>;
-    router: fromRouter.RouterState;
+    // router: fromRouter.RouterState;
     search: IDs;
     session: Session;
     talk: Talks;
@@ -125,7 +123,7 @@ const reducers = {
     search: fromSearch.reducer,
     session: fromSession.reducer,
     message: fromMessages.reducer,
-    talk: fromTalks.makeReducer(backend, watch, store),
+    talk: fromTalks.reducer,
     p2pGame: p2pGameReducer
 };
 
@@ -384,12 +382,12 @@ export const getMessage = createSelector(getMessagesState, fromMessages.getSelec
 export const getTalksState = (state: RootState) => state.talk;
 export const getTalks = createSelector(getTalksState, fromTalks.getTalks);
 export const getFilteredTalks = createSelector(getTalksState, fromTalks.getFilteredTalks);
-export const getRouterState = (state: RootState) => state.router;
-export const getSelectedTalk = createSelector(getTalksState, getRouterState, (talks, router) => {
-    let talkId = router.path;
-    talkId = '123';
-    return talks.talks[talkId];
-});
+// export const getRouterState = (state: RootState) => state.router;
+// export const getSelectedTalk = createSelector(getTalksState, getRouterState, (talks, router) => {
+//     let talkId = router.path;
+//     talkId = '123';
+//     return talks.talks[talkId];
+// });
 // getSelectedTalk() {
 //   const talkId$ = this.route.params.map(p => p.id);
 
@@ -397,9 +395,9 @@ export const getSelectedTalk = createSelector(getTalksState, getRouterState, (ta
 //     return talks.find(talk => talk.id === selected);
 //   });
 // }
-export const getWatched = createSelector(getTalksState, getRouterState, (talks, router) => {
-    // return this.store.state.watched[+this.route.snapshot.params['id']];
-    let talkId = router.path;
-    talkId = '123';
-    return true;
-});
+// export const getWatched = createSelector(getTalksState, getRouterState, (talks, router) => {
+//     // return this.store.state.watched[+this.route.snapshot.params['id']];
+//     let talkId = router.path;
+//     talkId = '123';
+//     return true;
+// });

@@ -8,7 +8,14 @@ import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule, TranslateLoader, TranslateParser, MissingTranslationHandler } from '@ngx-translate/core';
+import { TranslateHttpLoader, } from '@ngx-translate/http-loader';
+import { StoreRouterConnectingModule } from "@ngrx/router-store";
+import { translatePartialLoader, missingTranslationHandler } from 'ng-jhipster';
+import { Http } from '@angular/http';
 
+import { NgaModule } from '../theme/nga.module';
 import { reducer } from './store';
 
 /**
@@ -18,7 +25,7 @@ import { compose } from '@ngrx/core/compose';
 import { Store, StoreModule, ActionReducer, combineReducers } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
-import { RouterStoreModule } from '@ngrx/router-store';
+// import { RouterStoreModule } from '@ngrx/router-store';
 import { DBModule } from '@ngrx/db';
 
 /**
@@ -31,20 +38,31 @@ import { SocketService } from './services/socket.service';
 import { UserService } from './services/user.service';
 import { customHttpProvider } from '../blocks/interceptor/http.provider';
 
+import { AppState, InternalStateType } from '../app.service';
+import { GlobalState } from '../global.state';
+
+// Application wide providers
+// const APP_PROVIDERS = [
+//     AppState,
+//     GlobalState
+// ];
 // Reset the root state for HMR
-function stateSetter(reducer: ActionReducer<any>): ActionReducer<any> {
-    return function(state, action) {
-        if (action.type === 'SET_ROOT_STATE') {
-            return action.payload;
-        }
-        return reducer(state, action);
-    };
-}
+// function stateSetter(reducer: ActionReducer<any>): ActionReducer<any> {
+//     return function (state, action) {
+//         if (action.type === 'SET_ROOT_STATE') {
+//             return action.payload;
+//         }
+//         return reducer(state, action);
+//     };
+// }
 
-const rootReducer = compose(stateSetter, combineReducers)({
-    reducer
-});
-
+// const rootReducer = compose(stateSetter, combineReducers)({
+//     reducer
+// });
+// AoT requires an exported function for factories
+// export function HttpLoaderFactory(http: Http) {
+//     return new TranslateHttpLoader(http);
+// }
 const imports = [
     // BrowserModule,
     BrowserAnimationsModule,
@@ -54,6 +72,8 @@ const imports = [
     RouterModule,
     GreatBigExampleApplicationSharedModule,
     MaterialModule,
+    NgaModule.forRoot(),
+    NgbModule.forRoot(),
     FlexLayoutModule,
 
     // StoreLogMonitorModule,
@@ -65,13 +85,15 @@ const imports = [
      * meta-reducer. This returns all providers for an @ngrx/store
      * based application.
      */
-    StoreModule.provideStore(reducer),
+    // StoreModule.provideStore(reducer), //  <-- old way
+    StoreModule.forRoot(reducer),
 
     /**
      * @ngrx/router-store keeps router state up-to-date in the store and uses
      * the store as the single source of truth for the router's state.
      */
-    RouterStoreModule.connectRouter(),
+    // RouterStoreModule.connectRouter(), // <-- old way
+    StoreRouterConnectingModule,
 
     /**
      * Store devtools instrument the store retaining past versions of state
@@ -83,19 +105,22 @@ const imports = [
      *
      * See: https://github.com/zalmoxisus/redux-devtools-extension
      */
-    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    // StoreDevtoolsModule.instrumentOnlyWithExtension(), // <-- old way
+    StoreDevtoolsModule.instrument({
+        maxAge: 25 //  Retains last 25 states
+    }),
 
     /**
      * `provideDB` sets up @ngrx/db with the provided schema and makes the Database
      * service available.
      */
-    DBModule.provideDB(schema),
+    DBModule.provideDB(schema)
 ];
 
 // Enable HMR and ngrx/devtools in hot reload mode
 if (process.env === 'dev') {
     imports.push(...[
-        StoreDevtoolsModule.instrumentStore({
+        StoreDevtoolsModule.instrument({
             monitor: useLogMonitor({
                 visible: false,
                 position: 'right'
@@ -113,7 +138,8 @@ if (process.env === 'dev') {
         RESTService,
         SocketService,
         UserService,
-        customHttpProvider()
+        customHttpProvider(), // expose our Services and Providers into Angular's dependency injection
+        // APP_PROVIDERS
     ]
 })
 

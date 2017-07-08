@@ -1,5 +1,5 @@
 import { Talk } from './talk.model';
-import { Filters } from '../layout/layout.model';
+import { Filters } from '../../../features/talks/talks.layout';
 
 export interface Talks {
     talks: { [id: number]: Talk },

@@ -1,18 +1,18 @@
-<md-card *ngIf="talk$ | async as talk">
-    <div id="rating-column">
-        Rating
-        <span id="rating">{{talk.rating | formatRating}}</span>
+<md-card *ngIf="talk">
+  <div id="rating-column">
+    Rating
+    <span id="rating">{{talk.rating | formatRating}}</span>
+  </div>
+
+  <div>
+    <span id="title">{{talk.title}}</span>
+    <span id="speaker">{{talk.speaker}}</span>
+
+    <div id="description">
+      {{talk.description}}
     </div>
 
-    <div>
-        <span id="title">{{talk.title}}</span>
-        <span id="speaker">{{talk.speaker}}</span>
-
-        <div id="description">
-            {{talk.description}}
-        </div>
-
-        <watch-button [talk]="talk" [watched]="watched$ | async" (watch)="handleWatch()"></watch-button>
-        <rate-button [talk]="talk" (rate)="handleRate($event)"></rate-button>
-    </div>
+    <watch-button [talk]="talk" [watched]="isWatched" (watch)="handleWatch()"></watch-button>
+    <rate-button [talk]="talk" (rate)="handleRate($event)"></rate-button>
+  </div>
 </md-card>
