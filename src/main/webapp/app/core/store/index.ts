@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
 import { Observable } from 'rxjs/Observable';
-import { combineLatest } from 'rxjs/observable/combineLatest';
 import * as fromRouter from '@ngrx/router-store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/combineLatest';
 
 import { Book } from './book/book.model';
 import { Claim } from './claim/claim.model';

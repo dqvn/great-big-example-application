@@ -7,7 +7,6 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/takeLast';
 import 'rxjs/add/operator/combineLatest';
-import { combineLatest } from 'rxjs/observable/combineLatest';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import * as fromRoot from '../../core/store';
@@ -32,15 +31,15 @@ export class BerniePage implements OnInit, OnDestroy, AfterViewChecked {
     claimEntities$: Observable<Entities<Claim>>;
     claimEntities: Entities<Claim>;
     claimEntitiesSub: Subscription;
-    deepClaims$: Observable<Claim[]>;
+    deepClaims$: Store<Claim[]>;
     deepClaims: Claim[];
     rebuttals$: Observable<Rebuttal[]>;
     loading$: Observable<boolean>;
     expanded: boolean;
     editable: boolean;
-    claimRebuttals$: Observable<ClaimRebuttal[]>;
+    claimRebuttals$: Store<ClaimRebuttal[]>;
     claimRebuttalsSub: Subscription;
-    claimRebuttals: ClaimRebuttal[];
+    claimRebuttals: Readonly<ClaimRebuttal[]>;
     searchTerms = new Subject<string>();
 
     options: SortablejsOptions = {

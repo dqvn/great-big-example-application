@@ -16,7 +16,7 @@ import * as SliceActions from '../../core/store/slice/slice.actions';
 })
 
 export class MessagesPage implements OnInit, OnDestroy {
-    private messages$: Observable<Message[]>;
+    private messages$: Store<Message[]>;
     private messageSubscription: any;
     public messages = [];
     public userLogin = 'anonymous';

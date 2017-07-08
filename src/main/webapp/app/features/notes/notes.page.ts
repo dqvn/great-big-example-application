@@ -15,7 +15,7 @@ import * as EntityActions from '../../core/store/entity/entity.actions';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotesPage implements OnInit {
-    notes$: Observable<Note[]>;
+    notes$: Store<Note[]>;
 
     constructor(private store: Store<fromRoot.RootState>) {
     }
