@@ -16,8 +16,8 @@ export class TalksAndFiltersPage {
     talks: Observable<Talk[]>;
 
     constructor(private router: Router, store: Store<fromRoot.RootState>) {
-        this.filters = store.select('talk', 'filters');
-        this.talks = store.select('talk').map(s => s.list.map(n => s.talks[n]));
+        this.filters = store.select('layout', 'talksPage', 'filters');
+        this.talks = store.select('layout', 'talksPage').map(s => s.list.map(n => s.talks[n]));
     }
 
     handleFiltersChange(filters: Filters): void {

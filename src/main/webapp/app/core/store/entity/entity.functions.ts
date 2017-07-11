@@ -12,7 +12,7 @@ import { toPayload, Actions } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 
 import { Entities } from './entity.model';
-import { typeFor } from '../util';
+import { typeFor, PayloadAction } from '../util';
 import { actions, EntityAction } from './entity.actions';
 import * as EntityActions from './entity.actions';
 
@@ -167,7 +167,7 @@ function reduceOne<T>(state: Entities<T>, entity: T = null, action: EntityAction
  *
  */
 
-export function loadFromRemote$(actions$: Actions, slice: string, dataService): Observable<Action> {
+export function loadFromRemote$(actions$: Actions, slice: string, dataService): Observable<{}> {  // TODO: should return PayloadAction
     return actions$
         .ofType(typeFor(slice, actions.LOAD))
         .startWith(new EntityActions.Load(slice, null))
@@ -218,10 +218,10 @@ export function updateToRemote$(actions$: Actions, slice: string, dataService, s
         );
 }
 
-export function deleteFromRemote$(actions$: Actions, slice: string, dataService, store): Observable<Action> {
+export function deleteFromRemote$(actions$: Actions, slice: string, dataService, store): Observable<EntityAction<any>> {  // TODO: fix this any
     return actions$
         .ofType(typeFor(slice, actions.DELETE))
-        .switchMap((action) => dataService.remove(action.payload, slice))
+        .switchMap((action) => dataService.remove((<EntityAction<any>>action).payload, slice))
         .map((responseEntity) => new EntityActions.DeleteSuccess(slice, responseEntity))
         .catch((err) => {
             console.log(err);

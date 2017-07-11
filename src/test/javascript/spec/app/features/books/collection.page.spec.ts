@@ -5,7 +5,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { By } from '@angular/platform-browser';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
-import * as fromRoot from '../../../../../../main/webapp/app/core/store';
+import { reducers } from '../../../../../../main/webapp/app/core/store';
 import { GreatBigExampleApplicationSharedModule } from '../../../../../../main/webapp/app/shared/shared.module';
 import { CollectionPage } from '../../../../../../main/webapp/app/features/books/collection.page';
 
@@ -21,7 +21,7 @@ describe('CollectionPageComponent', () => {
             imports: [
                 GreatBigExampleApplicationSharedModule,
                 // StoreModule.provideStore(fromRoot.reducer),
-                StoreModule.forRoot(fromRoot.reducer),
+                StoreModule.forRoot(reducers),
                 RouterTestingModule
             ],
             declarations: [CollectionPage],

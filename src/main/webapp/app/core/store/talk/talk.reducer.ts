@@ -98,9 +98,7 @@ export function reducer(state: Entities<Talk>, action: Action): Entities<Talk> {
 // function createFilters(p: Params): Filters {
 //     return { speaker: p['speaker'] || null, title: p['title'] || null, minRating: p['minRating'] ? +p['minRating'] : 0 };
 // }
+export const getEntities = (state: Entities<Talk>) => state.entities;
 
-export const getTalks = (state: Talks) => state.talks;
+export const getIds = (state: Entities<Talk>) => state.ids.filter((id) => !state.entities[id].deleteMe);
 
-export const getFilteredTalks = (state: Talks) => {
-    return state.list.map(n => state.talks[n]);
-}

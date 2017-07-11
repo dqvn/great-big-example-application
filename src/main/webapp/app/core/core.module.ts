@@ -16,14 +16,14 @@ import { translatePartialLoader, missingTranslationHandler } from 'ng-jhipster';
 import { Http } from '@angular/http';
 
 import { NgaModule } from '../theme/nga.module';
-import { reducer } from './store';
 
+import { reducers, developmentReducerFactory } from './store';
 /**
  * Import ngrx
  */
 import { Store, StoreModule, ActionReducer, combineReducers } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
+// import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
 // import { RouterStoreModule } from '@ngrx/router-store';
 import { DBModule } from '@ngrx/db';
 
@@ -85,7 +85,9 @@ const imports = [
      * based application.
      */
     // StoreModule.provideStore(reducer), //  <-- old way
-    StoreModule.forRoot(reducer),
+    StoreModule.forRoot(reducers, {
+        reducerFactory: (process.env === 'dev') ? developmentReducerFactory : undefined
+    }),
 
     /**
      * @ngrx/router-store keeps router state up-to-date in the store and uses
@@ -114,18 +116,18 @@ const imports = [
 ];
 
 // Enable HMR and ngrx/devtools in hot reload mode
-if (process.env === 'dev') {
-    imports.push(...[
-        StoreDevtoolsModule.instrument({
-            monitor: useLogMonitor({
-                visible: false,
-                position: 'right'
-            }),
-            maxAge: 25 //  Retains last 25 states
-        }),
-        StoreLogMonitorModule,
-    ]);
-}
+// if (process.env === 'dev') {
+//     imports.push(...[
+//         StoreDevtoolsModule.instrument({
+//             monitor: useLogMonitor({
+//                 visible: false,
+//                 position: 'right'
+//             }),
+//             maxAge: 25 //  Retains last 25 states
+//         }),
+//         // StoreLogMonitorModule,
+//     ]);
+// }
 
 @NgModule({
     imports,

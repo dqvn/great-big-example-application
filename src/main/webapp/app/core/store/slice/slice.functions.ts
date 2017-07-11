@@ -7,6 +7,7 @@ import { SliceAction } from './slice.actions';
 import { typeFor } from '../util';
 import { actions } from './slice.actions';
 import * as ActionClasses from './slice.actions';
+import { PayloadAction } from '../util';
 
 const merge = require('lodash/merge');
 
@@ -80,10 +81,10 @@ function evaluate(val, state) {
 /**
  * Effects
  */
-export function loadFromRemote$(actions$: Actions, slice: string, dataService, dataGetter: string, transform: Function = ((resp) => resp)): Observable<Action> {
+export function loadFromRemote$(actions$: Actions, slice: string, dataService, dataGetter: string, transform: Function = ((resp) => resp)): Observable<{}> {  // TODO: should return PayloadAction
     return actions$
         .ofType(typeFor(slice, actions.LOAD))
-        .switchMap((action: Action) =>
+        .switchMap((action: PayloadAction) =>
             dataService[dataGetter](action.payload)
                 .map(transform)
                 .map((responseSlice: any) =>

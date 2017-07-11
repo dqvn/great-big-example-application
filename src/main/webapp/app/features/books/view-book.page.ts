@@ -28,14 +28,13 @@ import { slices } from '../../core/store/util';
 export class ViewBookPage implements OnDestroy {
     actionsSubscription: Subscription;
 
-    constructor(private store: Store<fromRoot.RootState>, route: ActivatedRoute) {
+    constructor(store: Store<fromRoot.RootState>, route: ActivatedRoute) {
         this.actionsSubscription = route.params
-            .select<string>('id')
-            .map((id) => new EntityActions.Select(slices.BOOK, id))
+            .map((params) => new EntityActions.Select(slices.BOOK, params.id))
             .subscribe(store);
     }
 
     ngOnDestroy() {
-        this.actionsSubscription && this.actionsSubscription.unsubscribe();
+        this.actionsSubscription.unsubscribe();
     }
 }

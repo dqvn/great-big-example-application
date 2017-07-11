@@ -17,10 +17,15 @@ export class TalkDetailsComponent {
     isWatched: boolean;
 
     constructor(private route: ActivatedRoute, private store: Store<RootState>) {
+
+        store.select('layout').subscribe((layout) => {
+            const id = (+route.snapshot.paramMap.get('id'));
+            this.isWatched = layout.talksPage.watched[id];
+        });
+
         store.select('talk').subscribe(t => {
             const id = (+route.snapshot.paramMap.get('id'));
-            this.talk = t.talks[id];
-            this.isWatched = t.watched[id];
+            this.talk = t[id];
         });
     }
 

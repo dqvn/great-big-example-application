@@ -51,3 +51,10 @@ export const slices = {
     SEARCH: 'search',
     SESSION: 'session'
 };
+
+export class PayloadAction implements Action {
+    public type: string;
+
+    constructor(public payload?: any) {
+    }
+}

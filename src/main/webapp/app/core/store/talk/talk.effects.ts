@@ -23,7 +23,7 @@ export class TalksEffects {
 
     @Effect() navigateToTalk = this.handleNavigation('talk/:id', (r: ActivatedRouteSnapshot, state: RootState) => {
         const id = +r.paramMap.get('id');
-        if (!state.talk.talks[id]) {
+        if (!state.talk[id]) {
             return this.backend.findTalk(+r.paramMap.get('id')).map(resp => ({ type: 'TALK_UPDATED', payload: resp }));
         } else {
             return of();

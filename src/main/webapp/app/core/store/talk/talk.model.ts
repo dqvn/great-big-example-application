@@ -4,5 +4,6 @@ export interface Talk {
     speaker: string,
     description: string,
     yourRating: number,
-    rating: number
+    rating: number,
+    deleteMe?: boolean
 }
