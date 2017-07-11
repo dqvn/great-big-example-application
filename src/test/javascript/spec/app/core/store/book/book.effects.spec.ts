@@ -1,90 +1,88 @@
-import { EffectsTestingModule, EffectsRunner } from '@ngrx/effects/testing';
-import { TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { BookEffects } from '../../../../../../../main/webapp/app/core/store/book/book.effects';
-import { GoogleBooksService } from '../../../../../../../main/webapp/app/features/books/services/google-books.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 
-// import { SearchAction, SearchComplete } from './book.actions';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { Actions } from '@ngrx/effects';
+import { cold, hot, getTestScheduler } from 'jasmine-marbles';
+import { empty } from 'rxjs/observable/empty';
+import { BookEffects, SEARCH_SCHEDULER, SEARCH_DEBOUNCE } from '../../../../../../../main/webapp/app/core/store/book/book.effects';
+import { GoogleBooksService } from '../../../../../../../main/webapp/app/features/books/services/google-books.service';
 import { Book } from '../../../../../../../main/webapp/app/core/store/book/book.model';
-import * as IDActions from '../../../../../../../main/webapp/app/core/store/id/id.actions';
+import * as idActions from '../../../../../../../main/webapp/app/core/store/id/id.actions';
 import { slices } from '../../../../../../../main/webapp/app/core/store/util';
 
-describe('BookEffects', () => {
-    beforeEach(() => TestBed.configureTestingModule({
-        imports: [
-            EffectsTestingModule
-        ],
-        providers: [
-            BookEffects,
-            {
-                provide: GoogleBooksService,
-                useValue: jasmine.createSpyObj('googleBooksService', ['searchBooks'])
-            }
-        ]
-    }));
-
-    function setup(params?: { searchBooksReturnValue: any }) {
-        const googleBooksService = TestBed.get(GoogleBooksService);
-        if (params) {
-            googleBooksService.searchBooks.and.returnValue(params.searchBooksReturnValue);
-        }
-
-        return {
-            runner: TestBed.get(EffectsRunner),
-            bookEffects: TestBed.get(BookEffects)
-        };
+export class TestActions extends Actions {
+    constructor() {
+        super(empty());
     }
 
+    set stream(source: Observable<any>) {
+        this.source = source;
+    }
+}
+
+export function getActions() {
+    return new TestActions();
+}
+
+describe('BookEffects', () => {
+    let effects: BookEffects;
+    let googleBooksService: GoogleBooksService;
+    let actions$: TestActions;
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [
+                BookEffects,
+                { provide: GoogleBooksService, useValue: jasmine.createSpyObj('GoogleBooksService', ['searchBooks']) },
+                { provide: Actions, useFactory: getActions },
+                { provide: SEARCH_SCHEDULER, useFactory: getTestScheduler },
+                { provide: SEARCH_DEBOUNCE, useValue: 30 },
+            ]
+        });
+
+        effects = TestBed.get(BookEffects);
+        googleBooksService = TestBed.get(GoogleBooksService);
+        actions$ = TestBed.get(Actions);
+    });
+
     describe('search$', () => {
-        it('should return a new LoadSuccess action, with the books, on success, after the de-bounce', fakeAsync(() => {
+        it('should return a new idActions.LoadSuccess, with the books, on success, after the de-bounce', () => {
             const book1 = { id: '111', volumeInfo: {} } as Book;
             const book2 = { id: '222', volumeInfo: {} } as Book;
             const books = [book1, book2];
+            const action = new idActions.Load(slices.BOOK, 'query');
+            const completion = new idActions.LoadSuccess(slices.BOOK, books);
 
-            const { runner, bookEffects } = setup({ searchBooksReturnValue: Observable.of(books) });
+            actions$.stream = hot('-a---', { a: action });
+            const response = cold('-a|', { a: books });
+            const expected = cold('-----b', { b: completion });
+            googleBooksService.searchBooks.and.returnValue(response);
 
-            const expectedResult = new IDActions.LoadSuccess(slices.SEARCH, books);
+            expect(effects.search$).toBeObservable(expected);
+        });
 
-            runner.queue(new IDActions.Load(slices.SEARCH, 'query'));
+        it('should return a new idActions.LoadSuccess, with an empty array, if the books service throws', (() => {
+            const action = new idActions.Load(slices.BOOK, 'query');
+            const completion = new idActions.LoadSuccess(slices.BOOK, []);
+            const error = 'Error!';
 
-            let result = null;
-            bookEffects.search$.subscribe((_result) => result = _result);
-            tick(299); // test de-bounce
-            expect(result).toBe(null);
-            tick(300);
-            expect(result).toEqual(expectedResult);
-        }));
+            actions$.stream = hot('-a---', { a: action });
+            const response = cold('-#|', {}, error);
+            const expected = cold('-----b', { b: completion });
+            googleBooksService.searchBooks.and.returnValue(response);
 
-        it('should return a new LoadSuccess action, with an empty array, if the books service throws', fakeAsync(() => {
-            const { runner, bookEffects } = setup({ searchBooksReturnValue: Observable.throw(new Error()) });
-
-            const expectedResult = new IDActions.LoadSuccess(slices.SEARCH, []);
-            runner.queue(new IDActions.Load(slices.SEARCH, 'query'));
-
-            let result = null;
-            bookEffects.search$.subscribe((_result) => result = _result);
-            tick(299); // test de-bounce
-            expect(result).toBe(null);
-            tick(300);
-            expect(result).toEqual(expectedResult);
+            expect(effects.search$).toBeObservable(expected);
         }));
 
         it(`should not do anything if the query is an empty string`, fakeAsync(() => {
-            const { runner, bookEffects } = setup();
+            const action = new idActions.Load(slices.BOOK, '');
 
-            runner.queue(new IDActions.Load(slices.SEARCH, ''));
-            let result = null;
-            bookEffects.search$.subscribe({
-                next: () => result = false,
-                complete: () => result = false,
-                error: () => result = false
-            });
+            actions$.stream = hot('-a---', { a: action });
+            const expected = cold('---');
 
-            tick(300);
-            expect(result).toBe(null);
+            expect(effects.search$).toBeObservable(expected);
         }));
-
     });
 });

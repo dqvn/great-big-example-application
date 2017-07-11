@@ -23,7 +23,7 @@ import { reducers, developmentReducerFactory } from './store';
  */
 import { Store, StoreModule, ActionReducer, combineReducers } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-// import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
+import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
 // import { RouterStoreModule } from '@ngrx/router-store';
 import { DBModule } from '@ngrx/db';
 
@@ -75,7 +75,7 @@ const imports = [
     NgbModule.forRoot(),
     FlexLayoutModule,
 
-    // StoreLogMonitorModule,
+    StoreLogMonitorModule,
 
     /**
      * StoreModule.provideStore is imported once in the root module, accepting a reducer
@@ -116,18 +116,18 @@ const imports = [
 ];
 
 // Enable HMR and ngrx/devtools in hot reload mode
-// if (process.env === 'dev') {
-//     imports.push(...[
-//         StoreDevtoolsModule.instrument({
-//             monitor: useLogMonitor({
-//                 visible: false,
-//                 position: 'right'
-//             }),
-//             maxAge: 25 //  Retains last 25 states
-//         }),
-//         // StoreLogMonitorModule,
-//     ]);
-// }
+if (process.env === 'dev') {
+    imports.push(...[
+        StoreDevtoolsModule.instrument({
+            monitor: useLogMonitor({
+                visible: false,
+                position: 'right'
+            }),
+            maxAge: 25 //  Retains last 25 states
+        }),
+        StoreLogMonitorModule,
+    ]);
+}
 
 @NgModule({
     imports,

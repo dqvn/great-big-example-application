@@ -78,10 +78,10 @@ export function loadFromLocal$<T>(actions$: Actions, slice: string, db, localSto
  * @param dataService a service that gets data from a remote source
  * @param dataGetter a method of the service that takes a query string parameter
  */
-export function loadFromRemote$(actions$: Actions, slice: string, dataService, dataGetter: string): Observable<{}> {  // TODO: should return PayloadAction
+export function loadFromRemote$(actions$: Actions, slice: string, dataService, dataGetter: string, debounce: number = 300, scheduler?): Observable<{}> {  // TODO: should return PayloadAction
     return actions$
         .ofType(typeFor(slice, actions.LOAD))
-        .debounceTime(300)
+        .debounceTime(debounce, scheduler)
         .map(toPayload)
         .switchMap((query) => {
             if (query === '') {
