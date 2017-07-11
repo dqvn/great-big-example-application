@@ -1,4 +1,3 @@
-import '@ngrx/core/add/operator/select';
 import 'rxjs/add/operator/map';
 import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';

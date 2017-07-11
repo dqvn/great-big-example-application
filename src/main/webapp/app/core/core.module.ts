@@ -21,7 +21,6 @@ import { reducer } from './store';
 /**
  * Import ngrx
  */
-import { compose } from '@ngrx/core/compose';
 import { Store, StoreModule, ActionReducer, combineReducers } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
@@ -106,9 +105,6 @@ const imports = [
      * See: https://github.com/zalmoxisus/redux-devtools-extension
      */
     // StoreDevtoolsModule.instrumentOnlyWithExtension(), // <-- old way
-    StoreDevtoolsModule.instrument({
-        maxAge: 25 //  Retains last 25 states
-    }),
 
     /**
      * `provideDB` sets up @ngrx/db with the provided schema and makes the Database
@@ -124,7 +120,8 @@ if (process.env === 'dev') {
             monitor: useLogMonitor({
                 visible: false,
                 position: 'right'
-            })
+            }),
+            maxAge: 25 //  Retains last 25 states
         }),
         StoreLogMonitorModule,
     ]);
