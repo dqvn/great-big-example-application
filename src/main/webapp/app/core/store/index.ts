@@ -131,6 +131,28 @@ function logger(reducer: ActionReducer<RootState>) {
     }
 }
 
+const developmentReducer = compose(
+    // reduxThunk,                // Thunk middleware for Redux
+    // reduxMulti,                // Dispatch multiple actions
+    // reduxPromiseMiddleware(),
+    // storeFreeze,
+    localStorageSync({ keys: ['session'] }),
+    combineReducers)(reducers);
+const productionReducer = compose(
+    // reduxThunk,               // Thunk middleware for Redux
+    // reduxMulti,               // Dispatch multiple actions
+    // reduxPromiseMiddleware(),
+    localStorageSync({ keys: ['session'] }),
+    combineReducers)(reducers);
+
+export function reducer(state: any, action: any) {
+    if (process.env.NODE_ENV === 'prod') {
+        return productionReducer(state, action);
+    } else {
+        return developmentReducer(state, action);
+    }
+}
+
 /**
  * The compose function is one of our most handy tools. In basic terms, you give
  * it any number of functions and it returns a function. This new function
