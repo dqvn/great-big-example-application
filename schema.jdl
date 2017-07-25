@@ -80,10 +80,9 @@ paginate Message with infinite-scroll
 entity Talk {
 	title String required,
     speaker String required,
-    description String required,
-    yourRating Integer max(10),
-    rating Integer
+    description TextBlob required,
+    yourRating Float max(10),
+    rating Float
 }
 
-skipClient for * except Talk
-skipServer for * except Talk
+paginate Talk with pager
