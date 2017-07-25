@@ -76,3 +76,11 @@ entity Message {
 }
 
 paginate Message with infinite-scroll
+
+entity Talk {
+	title String required,
+    feature String required,
+    description String required,
+    yourRating Integer max(10),
+    rating Integer
+}
