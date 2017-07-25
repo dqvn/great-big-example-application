@@ -8,6 +8,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { reducers } from '../../../../../../main/webapp/app/core/store';
 import { GreatBigExampleApplicationSharedModule } from '../../../../../../main/webapp/app/shared/shared.module';
 import { CollectionPage } from '../../../../../../main/webapp/app/features/books/collection.page';
+import * as fromRoot from '../../../../../../main/webapp/app/core/store';
 
 describe('CollectionPageComponent', () => {
     let component: CollectionPage;
@@ -20,8 +21,7 @@ describe('CollectionPageComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 GreatBigExampleApplicationSharedModule,
-                // StoreModule.provideStore(fromRoot.reducer),
-                StoreModule.forRoot(reducers),
+                StoreModule.forRoot(fromRoot.reducer),
                 RouterTestingModule
             ],
             declarations: [CollectionPage],

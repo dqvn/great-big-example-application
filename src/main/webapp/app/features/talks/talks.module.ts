@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MaterialModule, MdInputModule, MdCheckboxModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -35,10 +35,10 @@ import { TalksRouting } from './talks.routing';
         FiltersComponent
     ],
     imports: [
-        BrowserModule,
+        CommonModule,
         ReactiveFormsModule,
         HttpModule,
-        NoopAnimationsModule,
+        // NoopAnimationsModule,
 
         MaterialModule,
         MdInputModule,

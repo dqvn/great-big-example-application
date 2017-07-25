@@ -49,7 +49,8 @@ export const slices = {
     NOTE: 'note',
     REBUTTAL: 'rebuttal',
     SEARCH: 'search',
-    SESSION: 'session'
+    SESSION: 'session',
+    TALK: 'talk'
 };
 
 export class PayloadAction implements Action {

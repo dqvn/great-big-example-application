@@ -14,9 +14,7 @@ const routes: Routes = [
         path: 'talks', pathMatch: 'full', component: TalksAndFiltersPage,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'greatBigExampleApplicationApp.talks.home.title',
-            source: 'https://github.com/vsavkin/state_management_ngrx4',
-            tags: ['redux', 'routing']
+            pageTitle: 'greatBigExampleApplicationApp.talks.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -24,9 +22,7 @@ const routes: Routes = [
         path: 'talk/:id', component: TalkDetailsComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'greatBigExampleApplicationApp.talks.home.title',
-            source: 'https://github.com/vsavkin/state_management_ngrx4',
-            tags: ['redux', 'routing']
+            pageTitle: 'greatBigExampleApplicationApp.talks.home.title'
         },
         canActivate: [UserRouteAccessService]
     }

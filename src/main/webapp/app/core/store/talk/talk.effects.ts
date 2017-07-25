@@ -9,22 +9,24 @@ import { Observable } from 'rxjs/Observable';
 import { WatchService } from '../../../features/talks/services/watch.service';
 import { Rate, Watch } from './talk.actions';
 import { Filters } from '../../../features/talks/talks.layout';
-import { BackendService } from '../../../features/talks/services/backend.service';  // TODO: switch to use standard
-// import { RESTService } from '../../services/rest.service';
+import { RESTService } from '../../services/rest.service';
 import { Talk } from './talk.model';
 import { RootState } from '../';
+import { slices } from '../util';
 
 @Injectable()
 export class TalksEffects {
-    @Effect() navigateToTalks = this.handleNavigation('talks', (r: ActivatedRouteSnapshot) => {
+    @Effect()
+    navigateToTalks$ = this.handleNavigation('talks', (r: ActivatedRouteSnapshot) => {
         const filters = createFilters(r.params);
-        return this.backend.findTalks(filters).map(resp => ({ type: 'TALKS_UPDATED', payload: { ...resp, filters } }));
+        return this.dataService.getEntities(slices.TALK, { speaker: filters.speaker, title: filters.title, minRating: '' + filters.minRating }).map(resp => ({ type: 'TALKS_UPDATED', payload: { ...resp, filters } }));
     });
 
-    @Effect() navigateToTalk = this.handleNavigation('talk/:id', (r: ActivatedRouteSnapshot, state: RootState) => {
+    @Effect()
+    navigateToTalk$ = this.handleNavigation('talk/:id', (r: ActivatedRouteSnapshot, state: RootState) => {
         const id = +r.paramMap.get('id');
         if (!state.talk[id]) {
-            return this.backend.findTalk(+r.paramMap.get('id')).map(resp => ({ type: 'TALK_UPDATED', payload: resp }));
+            return this.dataService.getEntity(+r.paramMap.get('id'), slices.TALK).map(resp => ({ type: 'TALK_UPDATED', payload: resp }));
         } else {
             return of();
         }
@@ -32,7 +34,7 @@ export class TalksEffects {
 
     @Effect() rateTalk = this.actions$.ofType('RATE').
         switchMap((a: Rate) => {
-            return this.backend.rateTalk(a.payload.talkId, a.payload.rating).switchMap(() => of()).catch(e => {
+            return this.dataService.update({ id: a.payload.talkId, rating: a.payload.rating }, slices.TALK).switchMap(() => of()).catch(e => {
                 console.log('Error', e);
                 return of({ type: 'UNRATE', payload: { talkId: a.payload.talkId } });
             });
@@ -47,7 +49,7 @@ export class TalksEffects {
     constructor(
         private store: Store<RootState>,  // Other effects are Store<Thing>
         private actions$: Actions,
-        private backend: BackendService,
+        private dataService: RESTService,
         private watch: WatchService
     ) { }
 

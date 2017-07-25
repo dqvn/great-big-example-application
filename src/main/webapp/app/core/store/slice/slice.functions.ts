@@ -81,7 +81,7 @@ function evaluate(val, state) {
 /**
  * Effects
  */
-export function loadFromRemote$(actions$: Actions, slice: string, dataService, dataGetter: string, transform: Function = ((resp) => resp)): Observable<{}> {  // TODO: should return PayloadAction
+export function loadFromRemote$(actions$: Actions, slice: string, dataService, dataGetter: string, transform: Function = ((resp) => resp)): Observable<Action> {
     return actions$
         .ofType(typeFor(slice, actions.LOAD))
         .switchMap((action: PayloadAction) =>
@@ -90,5 +90,30 @@ export function loadFromRemote$(actions$: Actions, slice: string, dataService, d
                 .map((responseSlice: any) =>
                     new ActionClasses.LoadSuccess(slice, responseSlice))
                 .catch((error) => of(new ActionClasses.LoadFail(slice, error)))
+        );
+}
+
+export function postToRemote$(actions$: Actions, slice: string, dataService, triggerAction: string, successAction: SliceAction, errorAction: SliceAction, transform: Function = ((resp) => resp)): Observable<Action> {
+    return httpToRemote$('post', actions$, slice, dataService, triggerAction, successAction, errorAction, transform);
+}
+
+export function deleteFromRemote$(actions$: Actions, slice: string, dataService, triggerAction: string, successAction: SliceAction, errorAction: SliceAction, transform: Function = ((resp) => resp)): Observable<Action> {
+    return httpToRemote$('delete', actions$, slice, dataService, triggerAction, successAction, errorAction, transform);
+}
+
+function httpToRemote$(method: string, actions$: Actions, slice: string, dataService, triggerAction: string, successAction: SliceAction, errorAction: SliceAction, transform: Function = ((resp) => resp)): Observable<Action> {
+    return actions$
+        .ofType(typeFor(slice, triggerAction))
+        .switchMap((action: PayloadAction) =>
+            dataService[method](action.payload.route, action.payload.requestObject || {})
+                .map(transform)
+                .map((responseSlice: any) => {
+                    successAction.payload = responseSlice;
+                    return successAction;
+                })
+                .catch((error) => {
+                    errorAction.payload = error;
+                    of(errorAction)
+                })
         );
 }
